@@ -6,7 +6,7 @@ metadata:
     component: elasticsearch
     role: master
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -37,15 +37,15 @@ spec:
         - name: CLUSTER_NAME
           value: myesdb
         - name: NUMBER_OF_MASTERS
-          value: "2"
+          value: "1"
         - name: NODE_MASTER
           value: "true"
         - name: NODE_INGEST
-          value: "false"
+          value: "true"
         - name: NODE_DATA
-          value: "false"
+          value: "true"
         - name: HTTP_ENABLE
-          value: "false"
+          value: "true"
         - name: ES_JAVA_OPTS
           value: -Xms256m -Xmx256m
         - name: PROCESSORS
@@ -60,6 +60,7 @@ spec:
         ports:
         - containerPort: 9300
           name: transport
+        - containerPort: 9200
         livenessProbe:
           tcpSocket:
             port: transport
